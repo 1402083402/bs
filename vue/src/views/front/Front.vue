@@ -9,25 +9,6 @@
         <div style="flex: 1" class="neon">验证码演示系统</div>
       </div>
       <div style="flex: 1">
-        <!--        导航菜单-->
-        <!--        <ul style="list-style: none; background-color: 	#98FB98; ">-->
-        <!--          <li class="item">-->
-        <!--            <el-dropdown size="medium">-->
-        <!--              <span>更多菜单<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i></span>-->
-        <!--              <el-dropdown-menu slot="dropdown">-->
-        <!--                <el-dropdown-item icon="el-icon-plus">黄金糕</el-dropdown-item>-->
-        <!--                <el-dropdown-item>狮子头</el-dropdown-item>-->
-        <!--                <el-dropdown-item>螺蛳粉</el-dropdown-item>-->
-        <!--                <el-dropdown-item>双皮奶</el-dropdown-item>-->
-        <!--                <el-dropdown-item>蚵仔煎</el-dropdown-item>-->
-        <!--              </el-dropdown-menu>-->
-        <!--            </el-dropdown>-->
-        <!--          </li>-->
-        <!--          <li class="item"><a href="/">菜单2</a></li>-->
-        <!--          <li class="item"><a href="/">菜单3</a></li>-->
-        <!--          <li class="item"><a href="/">菜单4</a></li>-->
-        <!--        </ul>-->
-
         <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal" router>
           <el-menu-item index="/front/home">首页</el-menu-item>
           <el-menu-item index="/front/article">系统公告</el-menu-item>
