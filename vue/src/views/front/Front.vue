@@ -14,10 +14,11 @@
           <el-menu-item index="/front/article">系统公告</el-menu-item>
           <el-submenu index="2">
             <template slot="title">验证码演示</template>
-            <el-menu-item index="/front/item1">数字验证码</el-menu-item>
-            <el-menu-item index="2-2">数字字母混合验证码</el-menu-item>
-            <el-menu-item index="2-3">数字算术验证码</el-menu-item>
-            <el-menu-item index="2-4">滑块验证码</el-menu-item>
+            <el-menu-item >数字验证码</el-menu-item>
+            <el-menu-item >数字字母混合验证码</el-menu-item>
+            <el-menu-item >数字算术验证码</el-menu-item>
+            <el-menu-item ><a href="http://localhost:8080/ChineseArithmetic.html" target="_blank" >中文算术验证码</a></el-menu-item>
+            <el-menu-item >滑块验证码</el-menu-item>
             <el-submenu index="2-4">
               <template slot="title">选项4</template>
               <el-menu-item index="2-4-1">选项1</el-menu-item>
