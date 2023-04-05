@@ -58,7 +58,7 @@
     </div>
 
     <div style="width: 1000px; margin: 0 auto">
-      <router-view/>
+      <router-view @refreshUser="getUser" />
     </div>
   </div>
 </template>
@@ -78,6 +78,16 @@ export default {
     logout() {
       this.$store.commit("logout")
       this.$message.success("退出成功")
+    },
+    getUser() {
+      let username = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : ""
+      if (username) {
+        // 从后台获取User数据
+        this.request.get("/user/username/" + username).then(res => {
+          // 重新赋值后台的最新User数据
+          this.user = res.data
+        })
+      }
     }
   }
 }

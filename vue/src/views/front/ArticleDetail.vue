@@ -132,6 +132,7 @@ export default {
       })
     },
     save() {
+      console.log(this.user);
       if (!this.user.id) {
         this.$message.warning("请登录后操作")
         return
