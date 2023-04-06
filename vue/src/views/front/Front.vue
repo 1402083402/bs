@@ -14,9 +14,9 @@
           <el-menu-item index="/front/article">系统公告</el-menu-item>
           <el-submenu index="2">
             <template slot="title">验证码演示</template>
-            <el-menu-item >数字验证码</el-menu-item>
-            <el-menu-item >数字字母混合验证码</el-menu-item>
-            <el-menu-item >数字算术验证码</el-menu-item>
+            <el-menu-item ><a href="http://localhost:8080/digital.html" target="_blank">数字验证码</a></el-menu-item>
+            <el-menu-item ><a href="http://localhost:8080/AlphanumericMixing.html" target="_blank">数字字母混合验证码</a></el-menu-item>
+            <el-menu-item ><a href="http://localhost:8080/Alphanumeric.html" target="_blank">数字算术验证码</a></el-menu-item>
             <el-menu-item ><a href="http://localhost:8080/ChineseArithmetic.html" target="_blank" >中文算术验证码</a></el-menu-item>
             <el-menu-item >滑块验证码</el-menu-item>
             <el-submenu index="2-4">

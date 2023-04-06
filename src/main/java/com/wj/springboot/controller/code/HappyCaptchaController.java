@@ -1,12 +1,17 @@
 package com.wj.springboot.controller.code;
 
 import com.ramostear.captcha.HappyCaptcha;
+import com.ramostear.captcha.core.AnimCaptcha;
+import com.ramostear.captcha.core.Captcha;
 import com.ramostear.captcha.support.CaptchaStyle;
 import com.ramostear.captcha.support.CaptchaType;
+import com.wj.springboot.controller.pro.MyHappyCaptcha;
+import com.wj.springboot.controller.redis.MyJedis;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
     @RestController
     @RequestMapping("/captcha")
     public class HappyCaptchaController {
+
+
+
         /**
          * 算术验证码
          * @param request
@@ -23,22 +31,31 @@ import javax.servlet.http.HttpServletResponse;
         @GetMapping("/arithmetic/generator")
         public void arithmeticCode(HttpServletRequest request, HttpServletResponse response) {
 
-            HappyCaptcha.require(request,response)
-                    .style(CaptchaStyle.ANIM)
+             MyHappyCaptcha.require(request, response)
+                    .style(CaptchaStyle.IMG)
                     .type(CaptchaType.ARITHMETIC_ZH)
                     .build().finish();
+
+
         }
 
 
         @GetMapping("/arithmetic/verify")
         public String arithmeticVerify(String verifyCode, HttpServletRequest request) {
+   if (verifyCode!=null)
+   {
+       MyJedis myJedis=new MyJedis();
+       myJedis.initJedis();
+       String code = myJedis.jedis.get("happy-captcha");
 
-            boolean aBoolean = HappyCaptcha.verification(request,verifyCode,true);
-            if (aBoolean){
-                HappyCaptcha.remove(request);
-                return "通过";
-            }
-
+       boolean aBoolean = verifyCode.equals(code);
+       if (aBoolean){
+           myJedis.jedis.del("happy-captcha");
+           myJedis.jedis.close();
+           return "通过";
+       }
+       myJedis.jedis.close();
+   }
             return "不通过";
         }
 
@@ -51,8 +68,8 @@ import javax.servlet.http.HttpServletResponse;
         @GetMapping("/alphanumericMixing/generator")
         public void alphanumericMixingCode(HttpServletRequest request, HttpServletResponse response) {
 
-            HappyCaptcha.require(request,response)
-                    .style(CaptchaStyle.ANIM)
+            MyHappyCaptcha.require(request,response)
+                    .style(CaptchaStyle.IMG)
                     .type(CaptchaType.DEFAULT)
                     .build().finish();
         }
@@ -65,8 +82,8 @@ import javax.servlet.http.HttpServletResponse;
         @GetMapping("/alphanumeric/generator")
         public void alphanumericCode(HttpServletRequest request, HttpServletResponse response) {
 
-            HappyCaptcha.require(request,response)
-                    .style(CaptchaStyle.ANIM)
+            MyHappyCaptcha.require(request,response)
+                    .style(CaptchaStyle.IMG)
                     .type(CaptchaType.ARITHMETIC)
                     .build().finish();
         }
@@ -78,8 +95,8 @@ import javax.servlet.http.HttpServletResponse;
         @GetMapping("/digital/generator")
         public void digitalVerificationCode(HttpServletRequest request, HttpServletResponse response) {
 
-            HappyCaptcha.require(request,response)
-                    .style(CaptchaStyle.ANIM)
+            MyHappyCaptcha.require(request,response)
+                    .style(CaptchaStyle.IMG)
                     .type(CaptchaType.NUMBER)
                     .build().finish();
         }
