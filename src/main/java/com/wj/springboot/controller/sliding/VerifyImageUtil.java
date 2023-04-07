@@ -14,8 +14,9 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * 类描述:【类描述】滑块验证码生成工具类
+ * 滑块验证码生成工具类
  */
+
 public class VerifyImageUtil {
 
     private static Logger log = LoggerFactory.getLogger(VerifyImageUtil.class);

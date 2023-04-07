@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>邮箱验证码</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sana-fserif;
+            background: url(./wallpaper.jpg) no-repeat;
+        }
+        /* 给整个表单设置宽度高度是根据表单中的内容自行收缩的，
+        并设置定位让整个表单居于页面正中间 */
+        .box{
+            width: 700px;
+            padding: 40px;
+            position: absolute;   /* 绝对定位，相对于父标签来进行定位 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background: rgba(25, 25, 25, 0.62);
+            text-align: center;  /*表单中内容居中*/
+        }
+
+        /* 设置标题样式 */
+        .box h1{
+            color: white;    /* 设置字体颜色 */
+            text-transform: uppercase;  /* 将字体全部设置成大写字母  */
+            font-weight: 500;  /*  设置字体粗细   */
+        }
+        /* 设置用户名输入框和密码输入框样式 */
+        .box input[type="text"],.box input[type="password"]{
+            border-radius: 24px;
+            border: 2px solid #3498db;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            padding: 14px 10px;
+            width: 200px;
+            outline: none;
+            color: white;     /* 设置输入框中竖线的颜色 */
+            transition: 0.25s;   /* 设置元素过渡效果 */
+        }
+        /* 设置文本框获得焦点时的样式 */
+        .box input[type="text"]:focus,.box input[type="password"]:focus{
+            width: 280px;
+            border-color: #2ecc71;
+        }
+        /* 设置提交按钮的样式 */
+        .box input[type="submit"]{
+            border-radius: 24px;
+            border: 2px solid #2ecc71;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            padding: 14px 40px;
+            outline: none;
+            color: white;     /* 设置输入框中竖线的颜色 */
+            transition: 0.25s;
+            cursor: pointer;    /* 设置光标的样式 */
+        }
+        /* 设置鼠标移人到按钮上的样式 */
+        .box input[type="submit"]:hover{
+            background: #2ecc71;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #87cefa;
+            background-color: #ffffff;
+            border: 2px solid #008cba;
+            border-radius: 8px;
+            box-shadow: 0 9px #999;
+        }
+
+        .button:hover {background-color: #dcdcdc}
+
+        .button:active {
+            background-color: #ffffff;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+    </style>
+
+    <script src="jquery-3.6.4.js"></script>
+
+</head>
+<body>
+    <div class="box"  >
+    <h1>Login</h1>
+        <h3>邮箱</h3>
+        <div><input type="text" name="" placeholder="请输入邮箱" id="email" class="input-box"></div>
+        <h3>验证码</h3>
+    <div><input type="text" name="" placeholder="请输入验证码" id="pwd" class="input-box"></div>
+        <button   value="发送邮件"  style="font-size: 40px"  id="btn1"   >发邮箱</button>
+        <button   value="验证"  style="font-size: 40px"  id="btn"   >验证</button>
+    </div>
+<script type="text/javascript">
+        $("#btn").click(function (){
+            var code=$("#pwd").val();
+            $.ajax({
+                url:"http://localhost:9090/emailVerify",//请求地址
+                data: {'code':code},//提交的数据
+                type:"get",//提交的方式
+                dataType:"TEXT", //返回类型 TEXT字符串 JSON XML
+                success:function(data){
+                    console.log(data)
+                    //开始之前要去空格，用trim()
+                    if(data.trim()=="通过")
+                    {
+                        alert("验证码输入正确");
+                    }
+                    else{
+                        alert("验证码输入错误");
+                    }
+                }
+            })
+
+        })
+
+        $("#btn1").click(function (){
+            var email=$("#email").val();
+            $.ajax({
+                url:"http://localhost:9090//sendEmail",//请求地址
+                data: {'email':email},//提交的数据
+                type:"post",//提交的方式
+                dataType:"TEXT", //返回类型 TEXT字符串 JSON XML
+            })
+        })
+
+        window.onload=function (){
+            var  btn1=document.getElementById("btn1");
+            btn1.onclick=function (){
+                alert("邮箱验证码发送成功")
+            }
+        }
+
+</script>
+</body>
+</html>
