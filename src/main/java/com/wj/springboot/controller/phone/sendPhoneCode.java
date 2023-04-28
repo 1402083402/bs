@@ -1,18 +1,30 @@
-package com.wj.springboot;
+package com.wj.springboot.controller.phone;
 
+import com.wj.springboot.entity.phoneCode;
 import com.wj.springboot.utils.HttpUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
-class SpringbootApplicationTests {
+@RestController
+public class sendPhoneCode {
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
-    @Test
-    void contextLoads() {
+    @PostMapping("/sendPhoneCode")
+    public void sendCode(@RequestBody phoneCode phone)
+ {
+     String code = UUID.randomUUID().toString().substring(0, 5);
         String host = "https://dfsns.market.alicloudapi.com";
         String path = "/data/send_sms";
         String method = "POST";
@@ -24,8 +36,8 @@ class SpringbootApplicationTests {
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         Map<String, String> querys = new HashMap<String, String>();
         Map<String, String> bodys = new HashMap<String, String>();
-        bodys.put("content", "code:1234");
-        bodys.put("phone_number", "18523737141");
+        bodys.put("content", "code:"+code);
+        bodys.put("phone_number", phone.getPhone());
         bodys.put("template_id", "TPL_0000");
 
 
@@ -46,6 +58,23 @@ class SpringbootApplicationTests {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+        stringRedisTemplate.opsForValue().set(phone.getPhone(),code,600, TimeUnit.SECONDS);
 
+ }
+    @PostMapping("/phoneCode/varify")
+    public String varifyPhoneCode(@RequestBody phoneCode code){
+
+
+        String phone = code.getPhone();
+
+        String phoneCode = stringRedisTemplate.opsForValue().get(phone);
+        if (!StringUtils.isEmpty(code.getCode())&&!StringUtils.isEmpty(phoneCode))
+        {
+            if (code.getCode().equals(phoneCode))
+            {
+                return "通过";
+            }
+        }
+        return "不通过";
+    }
 }

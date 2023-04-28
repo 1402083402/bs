@@ -176,6 +176,7 @@ public class VerifyImageUtil {
 
     private static void fillMatrix(int[][] matrix, int[] values) {
         int filled = 0;
+
         for (int i = 0; i < matrix.length; i++) {
             int[] x = matrix[i];
             for (int j = 0; j < x.length; j++) {

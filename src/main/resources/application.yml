@@ -2,6 +2,14 @@ server:
   port: 9090
 
 spring:
+#    alicloud:
+#      access-key: LTAI5tEDLJuJj6Mjb7MhpRZ9
+#      secret-key: ZFjmPIHZWUO8w6FcK83CWvTIreqKLQ
+#      sms:
+#        host: https://dfsns.market.alicloudapi.com
+#        path: /data/send_sms
+#        method: POST
+#        appCode: 51070d83172c4851a730541e1de330da
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/wj?serverTimezone=GMT%2b8

@@ -20,14 +20,15 @@
             <el-menu-item ><a href="http://localhost:8080/ChineseArithmetic.html" target="_blank" >中文算术验证码</a></el-menu-item>
             <el-menu-item ><a href="http://localhost:9090/" target="_blank" >滑块验证码</a></el-menu-item>
             <el-menu-item ><a href="http://localhost:8080/EmailCode.html" target="_blank" >邮箱验证码</a></el-menu-item>
-            <el-submenu index="2-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="2-4-1">选项1</el-menu-item>
-              <el-menu-item index="2-4-2">选项2</el-menu-item>
-              <el-menu-item index="2-4-3">选项3</el-menu-item>
-            </el-submenu>
+            <el-menu-item ><a href="http://localhost:8080/Phone.html" target="_blank" >短信验证码</a></el-menu-item>
+<!--            <el-submenu index="2-4">-->
+<!--              <template slot="title">选项4</template>-->
+<!--              <el-menu-item index="2-4-1">选项1</el-menu-item>-->
+<!--              <el-menu-item index="2-4-2">选项2</el-menu-item>-->
+<!--              <el-menu-item index="2-4-3">选项3</el-menu-item>-->
+<!--            </el-submenu>-->
           </el-submenu>
-          <el-menu-item index="3" >留言板</el-menu-item>
+          <el-menu-item index="3" >资料下载</el-menu-item>
           <el-menu-item index="4">接口文档</el-menu-item>
         </el-menu>
       </div>
