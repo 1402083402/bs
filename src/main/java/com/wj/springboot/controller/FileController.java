@@ -53,9 +53,11 @@ public class FileController {
         Files dbFiles = getFileByMd5(md5);
         if (dbFiles != null) {
             url = dbFiles.getUrl();
+            return url;
         } else {
              url = alyOSS.uoloadAly(file);
-
+            // 存储数据库
+            Files saveFile = new Files();
         }
 
 
