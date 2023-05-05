@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from "@/store";
-
+import FileDownload  from "@/views/front/FileDownload";
 Vue.use(VueRouter)
 
 const routes = [
@@ -44,9 +44,14 @@ const routes = [
                 path: 'articleDetail',
                 name: 'ArticleDetail',
                 component: () => import('../views/front/ArticleDetail')
+            },
+            {
+                path: 'FileDownload',
+                name: 'FileDownload',
+                component: () => import('../views/front/FileDownload')
             }
         ]
-    }
+    },
 
 ]
 

@@ -29,7 +29,7 @@
 <!--              <el-menu-item index="2-4-3">选项3</el-menu-item>-->
 <!--            </el-submenu>-->
           </el-submenu>
-          <el-menu-item index="3" >资料下载</el-menu-item>
+          <el-menu-item index="/front/FileDownload" >资料下载</el-menu-item>
           <el-menu-item index="4">接口文档</el-menu-item>
         </el-menu>
       </div>
