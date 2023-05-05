@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .verify_box{
+        width: 240px;
+        height: 40px;
+        background: #e9e6e9;
+        position: relative;
+    }
+    .verify_box p{
+        position: absolute;
+        top:-20%;
+        left: 45%;
+        z-index: 5;
+    }
+    .shadow {
+        position: absolute;
+        height: 40px;
+        background: greenyellow;
+    }
+    .verify_core{
+        background: #fff;
+        border: 1px solid #adadc2;
+        width: 50px;
+        height: 40px;
+        box-sizing: border-box;
+        position: absolute;
+        z-index: 20;
+        background-image: url('');
+        background-size: 100% 100%;
+    }
+    .verify_core img{
+        width: 30px;
+        height: 30px;
+        margin: 5px auto;
+        display: block;
+    }
+</style>
+<body>
+<div class="verify_box">
+    <!-- 滑块 -->
+    <div class="verify_core">
+    </div>
+    <!-- 文本 -->
+    <p>向右滑动</p>
+    <!-- 被滑过的部分 -->
+    <div class="shadow">
+    </div>
+</div>
+
+</body>
+<script>
+    var verify_box = document.querySelector('.verify_box');
+    var text = verify_box.querySelector('p');
+    var shadow = verify_box.querySelector('.shadow');
+    var verify_core = verify_box.querySelector('.verify_core');
+    var isSuccess = false;   //检查是否成功
+    verify_core.onmousedown = function(event) {   //按下滑块
+        var e = event || window.event;
+        var downX = e.clientX;
+        verify_core.onmousemove = function(event) {     //移动滑块
+            var moveX = event.clientX - downX;
+            if(moveX > 0) {
+                shadow.style.width = moveX + 'px';
+                this.style.left =  moveX + 'px';
+                if(moveX >= (verify_box.offsetWidth - this.offsetWidth)) {
+                    text.innerText = "通过";
+                    isSuccess = true;
+                    verify_core.style.backgroundImage = "url('./true.png')";
+                    this.onmousemove = null;   //当通过时，清除鼠标移动事件
+                    this.onmousedown = null;    //当通过时，清除鼠标按下事件
+                }
+            }
+
+        }
+    }
+
+    verify_core.onmouseup = function(event) {
+        this.onmousemove = null;
+        if(isSuccess) return;   //如果成功，直接退出
+        this.style.left = 0;
+        shadow.style.width = 0;
+    }
+</script>
+</html>

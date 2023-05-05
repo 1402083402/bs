@@ -21,6 +21,7 @@
             <el-menu-item ><a href="http://localhost:9090/" target="_blank" >滑块验证码</a></el-menu-item>
             <el-menu-item ><a href="http://localhost:8080/EmailCode.html" target="_blank" >邮箱验证码</a></el-menu-item>
             <el-menu-item ><a href="http://localhost:8080/Phone.html" target="_blank" >短信验证码</a></el-menu-item>
+            <el-menu-item ><a href="http://localhost:8080/slide.html" target="_blank" >简单的滑块验证码</a></el-menu-item>
 <!--            <el-submenu index="2-4">-->
 <!--              <template slot="title">选项4</template>-->
 <!--              <el-menu-item index="2-4-1">选项1</el-menu-item>-->
