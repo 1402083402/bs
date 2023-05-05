@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>验证码</title>
+    <style>
+        canvas {
+            border: 1px solid #ccc;
+        }
+        .chars {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .char {
+            margin: 0 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>验证码</h1>
+<canvas id="canvas" width="200" height="100"></canvas>
+<div class="chars"></div>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // 随机生成汉字
+    function randomChinese() {
+        const charCode = Math.floor(Math.random() * (0x9fa5 - 0x4e00)) + 0x4e00;
+        return String.fromCharCode(charCode);
+    }
+
+    // 绘制验证码图片
+    function drawCode() {
+        // 随机生成4个汉字
+        const code = [];
+        for (let i = 0; i < 4; i++) {
+            code.push(randomChinese());
+        }
+
+        // 绘制背景
+        ctx.fillStyle = '#f0f0f0';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 绘制汉字
+        ctx.font = '40px Arial';
+        for (let i = 0; i < 4; i++) {
+            ctx.fillStyle = 'rgb(' + Math.floor(Math.random() * 200) + ',' + Math.floor(Math.random() * 200) + ',' + Math.floor(Math.random() * 200) + ')';
+            ctx.fillText(code[i], i * 50 + 10, 60);
+        }
+
+        // 发送验证码到后端进行验证
+        const chars = document.querySelector('.chars');
+        chars.innerHTML = '';
+        for (let i = 0; i < 4; i++) {
+            const charDiv = document.createElement('div');
+            charDiv.classList.add('char');
+            charDiv.innerHTML = code[i];
+            charDiv.addEventListener('click', function() {
+                validateCode(code[i]);
+            });
+            chars.appendChild(charDiv);
+        }
+    }
+
+    // 验证汉字是否正确
+    function validateCode(char) {
+        fetch('http://localhost:9090/validate?char=' + encodeURIComponent(char))
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.success) {
+                    alert('验证成功');
+                    drawCode();
+                } else {
+                    alert('验证失败');
+                }
+            });
+    }
+
+    drawCode();
+</script>
+</body>
+</html>
